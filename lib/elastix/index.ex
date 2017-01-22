@@ -3,6 +3,14 @@ defmodule Elastix.Index do
   """
   alias Elastix.HTTP
 
+  #custom method
+  @doc false
+  def settings(elastic_url, name, data) do
+    elastic_url <> make_path(name)
+    |> HTTP.put(Poison.encode!(data))
+    |> process_response
+  end
+
   @doc false
   def create(elastic_url, name, data) do
     elastic_url <> make_path(name)
